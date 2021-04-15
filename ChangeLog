@@ -1,0 +1,16 @@
+2021-04-15  Kjartan Óli Ágústsson  <kjartanoli@protonmail.com>
+
+	* README.org (Shortcomings): Add note on the current shortcomings of Subnet Mask.
+	(Subnet Mask): Add a short description of what Subnet Mask is, and what it is useful for.
+	(Usage): Add usage examples.
+
+	* COPYING: Add license information.
+
+	* src/main.rs: Add functions: calculate_host_bits, calculate_subnet_mask, and calculate_prefix.
+	Add OutputType enum, to enable the user to control the format the result is given in.
+	Add --output, and --ip-version options.
+	Add messages that IPv6 is not yet supported.
+	Add copyright notice.
+
+	* Cargo.toml (name): Add dependency on clap for command line argument parsing.
+
