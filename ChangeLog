@@ -3,6 +3,7 @@
 	* README.org (Shortcomings): Add note on the current shortcomings of Subnet Mask.
 	(Subnet Mask): Add a short description of what Subnet Mask is, and what it is useful for.
 	(Usage): Add usage examples.
+	Fix formatting of sample code blocks.
 
 	* COPYING: Add license information.
 

@@ -7,16 +7,16 @@
 	 and prefix, formats of the subnet mask. Both of these shortcomings are
 	 intended to be fixed in the future.
 ** Usage
-	 #+begin_src shell
-		 subnet-mask [OPTIONS] <HOSTS>
-	 #+end_src
+#+begin_src shell
+	subnet-mask [OPTIONS] <HOSTS>
+#+end_src
 *** Sample usage 
-		#+begin_src shell
-			subnet-mask 26
-			subnet-mask -o prefix 10
-		#+end_src
+#+begin_src shell
+	subnet-mask 26
+	subnet-mask -o prefix 10
+#+end_src
 *** Options
-		#+begin_src shell
-			-v, --ip-version <ip-version>    Select the IP version to use [default: 4]  [possible values: 4, 6]
-			-o, --output <output>            Select the output type [default: all]  [possible values: b, bin, binary, h, human,
-		#+end_src
+#+begin_src shell
+	-v, --ip-version <ip-version>    Select the IP version to use [default: 4]  [possible values: 4, 6]
+	-o, --output <output>            Select the output type [default: all]  [possible values: b, bin, binary, h, human,
+#+end_src
