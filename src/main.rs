@@ -33,9 +33,9 @@ fn main() {
 		.arg(clap::Arg::with_name("output")
 				 .short("o")
 				 .long("output")
-				 .help("Select the output type")
+				 .help("Select the output type from dotted binary, dotted decimal, prefix notation, machine readable binary, and all")
 				 .takes_value(true)
-				 .possible_values(&["b", "bin", "binary", "h", "human", "p", "prefix", "a", "all"])
+				 .possible_values(&["b", "bin", "binary", "d", "dotted", "p", "prefix", "m", "machine", "a", "all"])
 				 .default_value("all")
 				 .number_of_values(1))
 		.arg(clap::Arg::with_name("HOSTS")
@@ -49,10 +49,12 @@ fn main() {
 		"b" => OutputType::Binary,
 		"bin" => OutputType::Binary,
 		"binary" => OutputType::Binary,
-		"h" => OutputType::Human,
-		"human" => OutputType::Human,
+		"d" => OutputType::DottedDecimal,
+		"dotted" => OutputType::DottedDecimal,
 		"p" => OutputType::Prefix,
 		"prefix" => OutputType::Prefix,
+		"m" => OutputType::Machine,
+		"machine" => OutputType::Machine,
 		"a" => OutputType::All,
 		"all" => OutputType::All,
 		_ => OutputType::Invalid,
@@ -65,16 +67,20 @@ fn main() {
 		OutputType::Binary => {
 			println!("{:b}", calculate_subnet_mask(&requiredHosts, &ipVersion));
 		},
-		OutputType::Human => {
-			println!("Not yet implemented");
+		OutputType::DottedDecimal => {
+			println!("{}", format_dotted_decimal(&calculate_mask_octets(calculate_subnet_mask(&requiredHosts, &ipVersion))))
 		},
 		OutputType::Prefix => {
 			println!("/{}", calculate_prefix(&requiredHosts, &ipVersion));
 		},
+		OutputType::Machine => {
+			println!("{:b}", calculate_subnet_mask(&requiredHosts, &ipVersion));
+		},
 		OutputType::All => {
 			let subnetMask = calculate_subnet_mask(&requiredHosts, &ipVersion);
 			let prefix = calculate_prefix(&requiredHosts, &ipVersion);
-			println!("Binary: {:b}\nHuman: {}\nPrefix: /{}", subnetMask, "Not yet implemented", prefix);
+			let octets = calculate_mask_octets(subnetMask);
+			println!("Dotted Binary: {}\nDotted Decimal: {}\nPrefix: /{}\nMachine Binary: {:b}", format_dotted_binary(&octets), format_dotted_decimal(&octets), prefix, subnetMask);
 		},
 		OutputType::Invalid => {
 			println!("Somehow an invalid argument got past our error checking. It would be greatly appreciated if you could let us know how you did that.");
@@ -85,8 +91,9 @@ fn main() {
 
 enum OutputType {
 	Binary,
-	Human,
+	DottedDecimal,
 	Prefix,
+	Machine,
 	All,
 	Invalid,
 }
@@ -106,6 +113,17 @@ fn calculate_subnet_mask(hosts: &u32, version: &u8) -> u32 {
 			std::process::exit(1)
 		}
 	}
+}
+
+fn calculate_mask_octets(mut mask: u32) -> [u32; 4] {
+	let mut octets: [u32; 4] = [0, 0, 0, 0];
+
+	for i in (0..4).rev() {
+		octets[i] = mask & 0xFF;
+		mask >>= 8u8;
+	}
+
+	octets
 }
 
 fn calculate_prefix(hosts: &u32, version: &u8) -> u32 {
@@ -139,4 +157,12 @@ fn calculate_host_bits(hosts: &u32, version: &u8) -> u32 {
 					std::process::exit(1)
 			}
 		}
+}
+
+fn format_dotted_decimal(octets: &[u32; 4]) -> String {
+	format!("{}.{}.{}.{}", octets[0], octets[1], octets[2], octets[3])
+}
+
+fn format_dotted_binary(octets: &[u32; 4]) -> String {
+	format!("{:08b}.{:08b}.{:08b}.{:08b}", octets[0], octets[1], octets[2], octets[3])
 }

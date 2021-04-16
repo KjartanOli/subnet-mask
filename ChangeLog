@@ -1,3 +1,15 @@
+2021-04-16  Kjartan Óli Ágústsson  <kjartanoli@protonmail.com>
+
+	* README.org (Shortcomings): Remove the statement that Subnet Mask does not support human readable output, since that has been addressed.
+
+	* Cargo.toml (version): Increment version to 0.2.0
+
+	* src/main.rs: Add functions format_dotted_binary, and format_dotted_decimal
+	Leave the formating of output to format_dotted_binary, and format_dotted_decimal
+	Add Machine output type, which returns pure binary
+	Change Binary output type to return dotted binary for improved readability
+	Add function calculate_mask_octets
+
 2021-04-15  Kjartan Óli Ágústsson  <kjartanoli@protonmail.com>
 
 	* README.org (Shortcomings): Add note on the current shortcomings of Subnet Mask.

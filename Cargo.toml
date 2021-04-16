@@ -1,6 +1,6 @@
 [package]
 name = "subnet-mask"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Kjartan Óli Ágústsson <kjartanoli@protonmail.com>", "Dagur Benjamínsson <dagurbenjamins@protonmail.com>"]
 edition = "2018"
 

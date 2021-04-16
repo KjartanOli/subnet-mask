@@ -3,10 +3,8 @@
 	the subnet mask required to create the smallest subnet capable of supporting
 	that many hosts.
 ** Shortcomings
-	 Currently, Subnet Mask only supports IPv4, and can only produce the binary,
-	 and prefix, formats of the subnet mask. Both of these shortcomings are
-	 intended to be fixed in the future.
-** Usage
+	 Currently, Subnet Mask only supports IPv4, fixing this is on the roadmap.
+* Usage
 #+begin_src shell
 	subnet-mask [OPTIONS] <HOSTS>
 #+end_src
